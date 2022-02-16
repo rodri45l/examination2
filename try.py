@@ -116,15 +116,6 @@ def shouldRoll(i,j,k):
 
     return pRoll > pHold
 
-def pWin(i, j, k):
-	n2_list = []
-	if(i+k => 100))):
-		print(1)
-	else:
-		print(2)
-
-
-
 # def pWin(i,j,k):
 #     n2_list = list()
 #     if(i+k >= GOAL):
