@@ -1,6 +1,7 @@
 from PIGClasses import Player as p
 from PIGClasses import Dice as d
 from PIGClasses import bcolors as c
+import try2 as t
 
 
 GOAL = 100
