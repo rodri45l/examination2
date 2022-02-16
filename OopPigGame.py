@@ -5,6 +5,7 @@ import try2 as t
 
 
 GOAL = 100
+DIVIDER = "=========================================================================================================="
 
 
 def printWelcomeMessage():
@@ -37,13 +38,13 @@ def showOptionMenu():
     return option2
 
 
-def createPlayer():
-    player = p(input("Please enter your name: "))
+def createPlayer(n):
+    player = p(input(f"Please Player{n} enter your name: "))
     return player
 
 
 def playerVsMachine():
-    player = createPlayer()
+    player = createPlayer(1)
     computer = p("Computer")
     keepRunning = True
     while(keepRunning):
@@ -107,6 +108,31 @@ def computerTurn(computer):
     print('\n')
     return computer
 
+def playerVsPlayer():
+    player1 = createPlayer(1)
+    player2 = createPlayer(2)
+    keepRunning = True
+    while(keepRunning):
+        print(DIVIDER)
+        print(f"{player1.name} It's Your turn!")
+        print(DIVIDER)
+        player1 = playerTurn(player1)
+        if(player1.score >= GOAL):
+            print(f'{c.OKGREEN} CONGRATULATIONS {player1.name} YOU WIN!!')
+            keepRunning = False
+            break
+        print(DIVIDER)
+        print(f"{player2.name} It's Your turn!")
+        print(DIVIDER)
+        player2 = playerTurn(player2)
+        if(player2.score >= GOAL):
+            print(f'{c.OKGREEN} CONGRATULATIONS {player2.name} YOU WIN!!')
+            keepRunning = False
+            break
+    print(f"Final Score:\n {player1.name}: {player1.score} \n \
+        {player2.name}: {player2.score}")
+
+
 
 def main():
     printWelcomeMessage()
@@ -114,7 +140,7 @@ def main():
     if playersOPtion == 1:
         playerVsMachine()
     else:
-        print(45)
+        playerVsPlayer()
 
 
 if __name__ == '__main__':
