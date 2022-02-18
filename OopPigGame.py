@@ -3,26 +3,30 @@ from PIGClasses import Dice as d
 from PIGClasses import bcolors as c
 
 GOAL = 100
-DIVIDER = "=========================================================================================================="
+DIVIDER = "===================================================================\
+======================================="
 
 
 def printWelcomeMessage():
-    print(f'{c.OKCYAN}Welcome to the dice game PIG')
-    print(f'{c.OKCYAN} In this game wins the first player to reach 100 points')
-    print(f'{c.OKCYAN} Players take turns to roll a single dice as many times\
-as they wish,    \n adding all roll results to a running total, but losing \
+    print(f'{c.HEADER}{DIVIDER}')
+    print(f'{c.OKBLUE}{c.UNDERLINE}Welcome to the dice game PIG\
+{c.NOT_UNDERLINED}')
+    print(f'{c.OKCYAN}In this game wins the first player to reach 100 points')
+    print(f'{c.OKCYAN}Players take turns to roll a single dice as many times\
+as they wish,    \nadding all roll results to a running total, but losing \
 their gained score for the turn if they roll a 1.')
+    print(f'{c.HEADER}{DIVIDER}')
 
 
 def showMenu():
-    print(f'{c.OKCYAN} Press 1 to play vs the computer')
-    print(f'{c.OKCYAN} Press 2 for 2 players')
+    print(f'{c.UNDERLINE}{ c.OKCYAN}Press 1 to play vs the computer.')
+    print(f'Press 2 for 2 players.{c.NOT_UNDERLINED}')
     choice = [1, 2]
     option = 0
     while(option not in choice):
-        try: 
+        try:
             option = int(input(f'{c.OKCYAN}Please input 1 or 2 \
-depending on your choice: '))
+depending on your choice: {c.RESET}'))
         except ValueError:
             print(f'{c.FAIL} Please enter a valid value (1, 2)')
             print('\n')
@@ -32,12 +36,12 @@ depending on your choice: '))
 def showOptionMenu():
     print('Enter 1 to roll the dice')
     print('Enter 2 to hold your score')
-    option2 = int(input('Enter your choice: '))
+    option2 = int(input(f'Enter your choice: {c.RESET}'))
     return option2
 
 
 def createPlayer(n):
-    player = p(input(f"Please Player{n} enter your name: "))
+    player = p(input(f"{c.OKCYAN}Please Player{n} enter your name: {c.RESET}"))
     return player
 
 
@@ -48,14 +52,16 @@ def playerVsMachine():
     while(keepRunning):
         player = playerTurn(player)
         if(player.score >= GOAL):
-            print(f'{c.OKGREEN} CONGRATULATIONS YOU WIN!! Humans > Computers')
+            print(f'{c.OKGREEN}CONGRATULATIONS {player.name} YOU WIN!! Humans \
+> Computers{c.RESET}')
+            print(f'{DIVIDER}')
             keepRunning = False
         computer = computerTurn(computer)
         if(computer.score >= GOAL):
-            print('{c.FAIL} You lose, computers > humans')
+            print(f'{c.FAIL} You lose, computers > humans')
             keepRunning = False
-    print(f"Final Score:\n Player: {player.score} \n \
-        Computer: {computer.score}")
+    print(f"Final Score:\n{player.name}: {player.score}\n\
+Computer: {computer.score}")
 
 
 def playerTurn(player):
@@ -63,28 +69,32 @@ def playerTurn(player):
     keepRunning = True
     x = d()
     while(keepRunning):
+        print(f'{c.HEADER}{DIVIDER}')
+        print(f'{c.UNDERLINE}Please {player.name} choose:{c.NOT_UNDERLINED}')
         option = showOptionMenu()
         if (option == 2):
             keepRunning = False
-        else:
+        elif(option == 1):
             x.rollDice()
 
             if(x.roll == 1):
                 player.turnScore = 0
                 print(f"{c.WARNING}Unlucky, you scored a 1")
-                print(f"Your score this turn is {player.turnScore}")
-                print(f"Your Total score this turn is {player.score}")
-                print('\n')
+                print(f"{c.OKBLUE}Your score this turn is {player.turnScore}")
+                print(f"{player.name}'s Total score this turn is \
+{player.score}")
                 return player
             else:
                 print(f"You got a {x.roll}")
                 player.turnScore += x.roll
-                print(f'{c.OKBLUE}Your score for this turn is: {player.turnScore}')
-                print('\n')
-    print(f"{c.OKGREEN}Your score this turn is {player.turnScore}")
+                print(f'{c.OKBLUE}Your score for this turn is:\
+ {player.turnScore}')
+        else:
+            print(f'{c.FAIL}!!!!!!\nPlease enter a valid option\n!!!!!!')
+            playerTurn(player)
+    print(f"{c.OKBLUE}Your score this turn is {player.turnScore}")
     player.sumTurnScore()
-    print(f"{c.OKGREEN}Your Total score this turn is {player.score}")
-    print('\n')
+    print(f"{player.name}'s Total score this turn is {player.score}")
 
     return player
 
@@ -96,15 +106,14 @@ def computerTurn(computer):
         if(dice.roll == 1):
             computer.turnScore = 0
             print(f"Computer score this turn is {computer.score}")
-            print('\n')
             return computer
         else:
             computer.turnScore += dice.roll
     print(f"Computer score this turn is {computer.turnScore}")
     computer.sumTurnScore()
-    print(f"Computer Total score this turn is {computer.score}")
-    print('\n')
+    print(f"Computer Total score is {computer.score}")
     return computer
+
 
 def playerVsPlayer():
     player1 = createPlayer(1)
@@ -116,7 +125,8 @@ def playerVsPlayer():
         print(DIVIDER)
         player1 = playerTurn(player1)
         if(player1.score >= GOAL):
-            print(f'{c.OKGREEN} CONGRATULATIONS {player1.name} YOU WIN!!')
+            print(f'{c.OKGREEN} CONGRATULATIONS {player1.name}\
+ YOU WIN!!{c.RESET}')
             keepRunning = False
             break
         print(DIVIDER)
@@ -124,12 +134,12 @@ def playerVsPlayer():
         print(DIVIDER)
         player2 = playerTurn(player2)
         if(player2.score >= GOAL):
-            print(f'{c.OKGREEN} CONGRATULATIONS {player2.name} YOU WIN!!')
+            print(f'{c.OKGREEN} CONGRATULATIONS {player2.name} YOU WIN!!\
+{c.RESET}')
             keepRunning = False
             break
-    print(f"Final Score:\n {player1.name}: {player1.score} \n \
+    print(f"Final Score:\n{player1.name}: {player1.score}\n\
 {player2.name}: {player2.score}")
-
 
 
 def main():

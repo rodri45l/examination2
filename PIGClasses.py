@@ -8,7 +8,6 @@ class Player():
         self.score = 0
         self.turnScore = 0
 
-
     def sumTurnScore(self):
         self.score += self.turnScore
         self.turnScore = 0
@@ -33,3 +32,5 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+    NOT_UNDERLINED = '\033[24m'
+    RESET = '\u001b[0m'
