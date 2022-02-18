@@ -1,8 +1,6 @@
 from PIGClasses import Player as p
 from PIGClasses import Dice as d
 from PIGClasses import bcolors as c
-import try2 as t
-
 
 GOAL = 100
 DIVIDER = "=========================================================================================================="
@@ -130,7 +128,7 @@ def playerVsPlayer():
             keepRunning = False
             break
     print(f"Final Score:\n {player1.name}: {player1.score} \n \
-        {player2.name}: {player2.score}")
+{player2.name}: {player2.score}")
 
 
 
