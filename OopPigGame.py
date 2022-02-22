@@ -1,6 +1,7 @@
 from PIGClasses import Player as p
 from PIGClasses import Dice as d
 from PIGClasses import bcolors as LetCol
+import probFuncToPython as prob
 
 GOAL = 100
 DIVIDER = "===================================================================\
@@ -12,7 +13,7 @@ def printWelcomeMessage():
 {LetCol.OKBLUE}{LetCol.UNDERLINE}Welcome to the dice game PIG\n\
 {LetCol.NOT_UNDERLINED}{LetCol.OKCYAN}In this game wins the first player to reach 100 points{LetCol.OKCYAN}\n\
 Players take turns to roll a single dice as many times\
-as they wish,    \nadding all roll results to a running total, but losing \
+ as they wish,    \nadding all roll results to a running total, but losing \
 their gained score for the turn if they roll a 1.\n{LetCol.HEADER}{DIVIDER}')
 
 
@@ -46,20 +47,22 @@ def createPlayer(n):
 def playerVsMachine():
     player = createPlayer(1)
     computer = p("Computer")
-    keepRunning = True
-    while(keepRunning):
+    while(player.score < 100 and computer.score < 100):
         player = playerTurn(player)
-        if(player.score >= GOAL):
-            print(f'{LetCol.OKGREEN}CONGRATULATIONS {player.name} YOU WIN!! Humans \
+        computer = computerTurn(computer, player)
+        print(f'Your probabilities to win are: {prob.pWin(player.score, computer.score, 0):.2f}')
+
+    if(player.score >= GOAL):
+        print(f'{LetCol.OKGREEN}CONGRATULATIONS {player.name} YOU WIN!! Humans \
 > Computers{LetCol.RESET}')
-            print(f'{DIVIDER}')
-            keepRunning = False
-        computer = computerTurn(computer)
-        if(computer.score >= GOAL):
-            print(f'{LetCol.FAIL}You lose, computers > humans')
-            keepRunning = False
-    print(f"Final Score:\n{player.name}: {player.score}\n\
+        print(f'{DIVIDER}')
+    elif(computer.score >= GOAL):
+        print(f'{LetCol.FAIL}You lose, computers > humans')
+        print(f"Final Score:\n{player.name}: {player.score}\n\
 Computer: {computer.score}")
+    else:
+        player = playerTurn(player)
+        computer = computerTurn(computer, player)
 
 
 def playerTurn(player):
@@ -97,9 +100,9 @@ def playerTurn(player):
     return player
 
 
-def computerTurn(computer):
+def computerTurn(computer, player):
     dice = d()
-    while(computer.turnScore < 20):
+    while(prob.shouldRoll(computer.score, player.score, computer.turnScore)):
         dice.rollDice(False)
         if(dice.roll == 1):
             computer.turnScore = 0
