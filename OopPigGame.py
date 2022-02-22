@@ -75,7 +75,7 @@ def playerTurn(player):
         if (option == 2):
             keepRunning = False
         elif(option == 1):
-            x.rollDice()
+            x.rollDice(True)
 
             if(x.roll == 1):
                 player.turnScore = 0
@@ -102,7 +102,7 @@ def playerTurn(player):
 def computerTurn(computer):
     dice = d()
     while(computer.turnScore < 20):
-        dice.rollDice()
+        dice.rollDice(False)
         if(dice.roll == 1):
             computer.turnScore = 0
             print(f"Computer score this turn is {computer.score}")
