@@ -70,8 +70,8 @@ def playerTurn(player):
     keepRunning = True
     x = d()
     while(keepRunning):
-        print(f'{LetCol.HEADER}{DIVIDER}')
-        print(f'{LetCol.UNDERLINE}Please {player.name} choose:{LetCol.NOT_UNDERLINED}')
+        print(f'{LetCol.HEADER}{DIVIDER}\n\
+{LetCol.UNDERLINE}Please {player.name} choose:{LetCol.NOT_UNDERLINED}')
         option = showOptionMenu()
         if (option == 2):
             keepRunning = False
@@ -80,9 +80,9 @@ def playerTurn(player):
 
             if(x.roll == 1):
                 player.turnScore = 0
-                print(f"{LetCol.WARNING}Unlucky, you scored a 1")
-                print(f"{LetCol.OKBLUE}Your score this turn is {player.turnScore}")
-                print(f"{player.name}'s Total score this turn is \
+                print(f"{LetCol.WARNING}Unlucky, you scored a 1\n\
+{LetCol.OKBLUE}Your score this turn is {player.turnScore}\n\
+{player.name}'s Total score this turn is \
 {player.score}")
                 return player
             else:
@@ -121,18 +121,14 @@ def playerVsPlayer():
     player2 = createPlayer(2)
     keepRunning = True
     while(keepRunning):
-        print(DIVIDER)
-        print(f"{player1.name} It's Your turn!")
-        print(DIVIDER)
+        print(f"{DIVIDER}\n{player1.name} It's Your turn!\n{DIVIDER}")
         player1 = playerTurn(player1)
         if(player1.score >= GOAL):
             print(f'{LetCol.OKGREEN} CONGRATULATIONS {player1.name}\
  YOU WIN!!{LetCol.RESET}')
             keepRunning = False
             break
-        print(DIVIDER)
-        print(f"{player2.name} It's Your turn!")
-        print(DIVIDER)
+        print(f"{DIVIDER}\n{player2.name} It's Your turn!\n{DIVIDER}")
         player2 = playerTurn(player2)
         if(player2.score >= GOAL):
             print(f'{LetCol.OKGREEN} CONGRATULATIONS {player2.name} YOU WIN!!\
