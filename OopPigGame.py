@@ -8,14 +8,12 @@ DIVIDER = "===================================================================\
 
 
 def printWelcomeMessage():
-    print(f'{LetCol.HEADER}{DIVIDER}')
-    print(f'{LetCol.OKBLUE}{LetCol.UNDERLINE}Welcome to the dice game PIG\
-{LetCol.NOT_UNDERLINED}')
-    print(f'{LetCol.OKCYAN}In this game wins the first player to reach 100 points')
-    print(f'{LetCol.OKCYAN}Players take turns to roll a single dice as many times\
+    print(f'{LetCol.HEADER}{DIVIDER}\n\
+{LetCol.OKBLUE}{LetCol.UNDERLINE}Welcome to the dice game PIG\n\
+{LetCol.NOT_UNDERLINED}{LetCol.OKCYAN}In this game wins the first player to reach 100 points{LetCol.OKCYAN}\n\
+Players take turns to roll a single dice as many times\
 as they wish,    \nadding all roll results to a running total, but losing \
-their gained score for the turn if they roll a 1.')
-    print(f'{LetCol.HEADER}{DIVIDER}')
+their gained score for the turn if they roll a 1.\n{LetCol.HEADER}{DIVIDER}')
 
 
 def showMenu():
@@ -58,7 +56,7 @@ def playerVsMachine():
             keepRunning = False
         computer = computerTurn(computer)
         if(computer.score >= GOAL):
-            print(f'{c.FAIL}You lose, computers > humans')
+            print(f'{LetCol.FAIL}You lose, computers > humans')
             keepRunning = False
     print(f"Final Score:\n{player.name}: {player.score}\n\
 Computer: {computer.score}")
