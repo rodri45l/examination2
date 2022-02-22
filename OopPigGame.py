@@ -58,7 +58,7 @@ def playerVsMachine():
             keepRunning = False
         computer = computerTurn(computer)
         if(computer.score >= GOAL):
-            print(f'{LetCol.FAIL} You lose, computers > humans')
+            print(f'{c.FAIL}You lose, computers > humans')
             keepRunning = False
     print(f"Final Score:\n{player.name}: {player.score}\n\
 Computer: {computer.score}")

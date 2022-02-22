@@ -1,6 +1,6 @@
 GOAL = 100
 import sys
-sys.setrecursionlimit(100000)
+sys.setrecursionlimit(5000)
 from collections import Counter
 
 p = [
@@ -147,4 +147,4 @@ def pWin(i, j, k):
     return p[i][j][k]
     
 
-print(pWin(1,1,97))
+print(pWin(1,1,1))
