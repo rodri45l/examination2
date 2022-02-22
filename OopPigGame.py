@@ -60,9 +60,6 @@ def playerVsMachine():
         print(f'{LetCol.FAIL}You lose, computers > humans')
         print(f"Final Score:\n{player.name}: {player.score}\n\
 Computer: {computer.score}")
-    else:
-        player = playerTurn(player)
-        computer = computerTurn(computer, player)
 
 
 def playerTurn(player):
@@ -119,24 +116,39 @@ def computerTurn(computer, player):
 def playerVsPlayer():
     player1 = createPlayer(1)
     player2 = createPlayer(2)
-    keepRunning = True
-    while(keepRunning):
+    while(player1.score < 100 and player2.score < 100):
         print(f"{DIVIDER}\n{player1.name} It's Your turn!\n{DIVIDER}")
         player1 = playerTurn(player1)
-        if(player1.score >= GOAL):
-            print(f'{LetCol.OKGREEN} CONGRATULATIONS {player1.name}\
- YOU WIN!!{LetCol.RESET}')
-            keepRunning = False
-            break
         print(f"{DIVIDER}\n{player2.name} It's Your turn!\n{DIVIDER}")
         player2 = playerTurn(player2)
-        if(player2.score >= GOAL):
-            print(f'{LetCol.OKGREEN} CONGRATULATIONS {player2.name} YOU WIN!!\
+        print(f'{DIVIDER}\nProbabilites to win:\n{player1.name}: \
+{prob.pWin(player1.score, player2.score, 0):.2f}\n{player2.name}: \
+{prob.pWin(player2.score, player1.score, 0):.2f}\n{DIVIDER}')
+    if(player1.score >= GOAL):
+        print(f'{LetCol.OKGREEN} CONGRATULATIONS {player1.name}\
+ YOU WIN!!{LetCol.RESET}')
+        
+    elif(player2.score >= GOAL):
+        print(f'{LetCol.OKGREEN} CONGRATULATIONS {player2.name} YOU WIN!!\
 {LetCol.RESET}')
-            keepRunning = False
-            break
     print(f"Final Score:\n{player1.name}: {player1.score}\n\
 {player2.name}: {player2.score}")
+
+    player = createPlayer(1)
+    computer = p("Computer")
+    while(player.score < 100 and computer.score < 100):
+        player = playerTurn(player)
+        computer = computerTurn(computer, player)
+        print(f'Your probabilities to win are: {prob.pWin(player.score, computer.score, 0):.2f}')
+
+    if(player.score >= GOAL):
+        print(f'{LetCol.OKGREEN}CONGRATULATIONS {player.name} YOU WIN!! Humans \
+> Computers{LetCol.RESET}')
+        print(f'{DIVIDER}')
+    elif(computer.score >= GOAL):
+        print(f'{LetCol.FAIL}You lose, computers > humans')
+        print(f"Final Score:\n{player.name}: {player.score}\n\
+Computer: {computer.score}")
 
 
 def main():
