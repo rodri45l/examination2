@@ -1,8 +1,10 @@
+
+import sys
+sys.path.append('./examinaton2')
 import unittest
 import DiceGame.OopPigGame as game
 import DiceGame.PIGClasses as pigC
-import io
-import sys
+import DiceGame.shouldRoll as sr
 from DiceGame.PIGClasses import bcolors as LetCol
 from unittest.mock import patch
 DIVIDER = "===================================================================\
@@ -17,7 +19,7 @@ class TestPigGame(unittest.TestCase):
         self.assertIsInstance(die, pigC.Dice)
     
     def test_Player(self):
-        playerTest = pigC.Player('Rodri')
+        playerTest = pigC.Player('RODRI45Z')
         self.assertIsInstance(playerTest, pigC.Player)
     
     def test_sumTurnScore(self):
@@ -32,6 +34,17 @@ class TestPigGame(unittest.TestCase):
         die = pigC.Dice()
         die.rollDice(True)
         exp = 1 <= die.roll <= 6
+        self.assertTrue(exp)
+    
+    def test_shouldRoll(self):
+        out1 = sr.shouldRoll(1,1,86)
+        out = sr.shouldRoll(0,99,4)
+        self.assertTrue(out)
+        self.assertFalse(out1)
+    
+    def test_pWin(self):
+        out = sr.pWin(0, 101, 99)
+        exp = out == 0
         self.assertTrue(exp)
 
     @patch('builtins.print')

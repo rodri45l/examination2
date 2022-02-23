@@ -60,11 +60,11 @@ clean-all: clean clean-doc
 #
 pylint:
 	@$(call MESSAGE,$@)
-	-cd guess && $(PYTHON) -m pylint *.py
+	-$(PYTHON) -m pylint ./DiceGame/*.py
 
 flake8:
 	@$(call MESSAGE,$@)
-	-flake8
+	-$(PYTHON) -m flake8 ./DiceGame/*.py
 
 lint: flake8 pylint
 
@@ -84,11 +84,11 @@ codestyle: black
 #
 unittest:
 	@$(call MESSAGE,$@)
-	 $(PYTHON) -m unittest discover
+	 $(PYTHON) -m unittest test/*.py
 
 coverage:
 	@$(call MESSAGE,$@)
-	coverage run -m unittest discover
+	coverage run -m unittest test/*.py
 	coverage html
 	coverage report -m
 

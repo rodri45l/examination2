@@ -1,7 +1,7 @@
-from PIGClasses import Player as p
-from PIGClasses import Dice as d
-from PIGClasses import bcolors as LetCol
-import ShouldRoll as prob
+from DiceGame.PIGClasses import Player as p
+from DiceGame.PIGClasses import Dice as d
+from DiceGame.PIGClasses import bcolors as LetCol
+import DiceGame.shouldRoll as prob
 
 GOAL = 100
 DIVIDER = "===================================================================\
@@ -24,7 +24,7 @@ def showMenu():
     print(f'Press 2 for 2 players.{LetCol.NOT_UNDERLINED}')
     choice = [1, 2]
     option = 0
-    while(option not in choice):
+    while option not in choice:
         try:
             option = int(input(f'{LetCol.OKCYAN}Please input 1 or 2 \
 depending on your choice: {LetCol.RESET}'))
@@ -52,19 +52,19 @@ def playerVsMachine():
     computer = p("Computer")
     while(player.score < 100 and computer.score < 100):
         player = playerTurn(player)
-        if(player.score >= 100):
+        if player.score >= 100:
             break
         computer = computerTurn(computer, player)
-        if(computer.score >= 100):
+        if computer.score >= 100 :
             break
         print(f'Your probabilities to win are: \
 {prob.pWin(player.score, computer.score, 0):.2f}')
 
-    if(player.score >= GOAL):
+    if player.score >= GOAL :
         print(f'{LetCol.OKGREEN}CONGRATULATIONS {player.name} YOU WIN!! Humans \
 > Computers{LetCol.RESET}')
         print(f'{DIVIDER}')
-    elif(computer.score >= GOAL):
+    elif computer.score >= GOAL :
         print(f'{LetCol.FAIL}You lose, computers > humans')
         print(f"Final Score:\n{player.name}: {player.score}\n\
 Computer: {computer.score}")
@@ -74,16 +74,16 @@ def playerTurn(player):
     option = 0
     keepRunning = True
     x = d()
-    while(keepRunning):
+    while keepRunning :
         print(f'{LetCol.HEADER}{DIVIDER}\n\
 {LetCol.UNDERLINE}Please {player.name} choose:{LetCol.NOT_UNDERLINED}')
         option = showOptionMenu()
-        if (option == 2):
+        if option == 2 :
             keepRunning = False
-        elif(option == 1):
+        elif option == 1 :
             x.rollDice(True)
 
-            if(x.roll == 1):
+            if x.roll == 1 :
                 player.turnScore = 0
                 print(f"{LetCol.WARNING}Unlucky, you scored a 1\n\
 {LetCol.OKBLUE}Your score this turn is {player.turnScore}\n\
@@ -107,9 +107,9 @@ def playerTurn(player):
 
 def computerTurn(computer, player):
     dice = d()
-    while(prob.shouldRoll(computer.score, player.score, computer.turnScore)):
+    while prob.shouldRoll(computer.score, player.score, computer.turnScore) :
         dice.rollDice(False)
-        if(dice.roll == 1):
+        if dice.roll == 1 :
             computer.turnScore = 0
             print(f"Computer score this turn is {computer.score}")
             return computer
@@ -132,11 +132,11 @@ def playerVsPlayer():
         print(f'{DIVIDER}\nProbabilites to win:\n{player1.name}: \
 {prob.pWin(player1.score, player2.score, 0):.2f}\n{player2.name}: \
 {prob.pWin(player2.score, player1.score, 0):.2f}\n{DIVIDER}')
-    if(player1.score >= GOAL):
+    if player1.score >= GOAL :
         print(f'{LetCol.OKGREEN} CONGRATULATIONS {player1.name}\
  YOU WIN!!{LetCol.RESET}')
 
-    elif(player2.score >= GOAL):
+    elif player2.score >= GOAL :
         print(f'{LetCol.OKGREEN} CONGRATULATIONS {player2.name} YOU WIN!!\
 {LetCol.RESET}')
     print(f"Final Score:\n{player1.name}: {player1.score}\n\
@@ -150,11 +150,11 @@ def playerVsPlayer():
         print(f'Your probabilities to win are: \
 {prob.pWin(player.score, computer.score, 0):.2f}')
 
-    if(player.score >= GOAL):
+    if player.score >= GOAL :
         print(f'{LetCol.OKGREEN}CONGRATULATIONS {player.name} YOU WIN!! Humans \
 > Computers{LetCol.RESET}')
         print(f'{DIVIDER}')
-    elif(computer.score >= GOAL):
+    elif computer.score >= GOAL :
         print(f'{LetCol.FAIL}You lose, computers > humans')
         print(f"Final Score:\n{player.name}: {player.score}\n\
 Computer: {computer.score}")
