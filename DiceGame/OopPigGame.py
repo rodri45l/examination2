@@ -1,7 +1,7 @@
 from PIGClasses import Player as p
 from PIGClasses import Dice as d
 from PIGClasses import bcolors as LetCol
-import probFuncToPython as prob
+import ShouldRoll as prob
 
 GOAL = 100
 DIVIDER = "===================================================================\
@@ -11,14 +11,16 @@ DIVIDER = "===================================================================\
 def printWelcomeMessage():
     print(f'{LetCol.HEADER}{DIVIDER}\n\
 {LetCol.OKBLUE}{LetCol.UNDERLINE}Welcome to the dice game PIG\n\
-{LetCol.NOT_UNDERLINED}{LetCol.OKCYAN}In this game wins the first player to reach 100 points{LetCol.OKCYAN}\n\
+{LetCol.NOT_UNDERLINED}{LetCol.OKCYAN}In this game wins the first player to \
+reach 100 points{LetCol.OKCYAN}\n\
 Players take turns to roll a single dice as many times\
  as they wish,    \nadding all roll results to a running total, but losing \
 their gained score for the turn if they roll a 1.\n{LetCol.HEADER}{DIVIDER}')
 
 
 def showMenu():
-    print(f'{LetCol.UNDERLINE}{ LetCol.OKCYAN}Press 1 to play vs the computer.')
+    print(f'{LetCol.UNDERLINE}{ LetCol.OKCYAN}Press 1\
+ to play vs the computer.')
     print(f'Press 2 for 2 players.{LetCol.NOT_UNDERLINED}')
     choice = [1, 2]
     option = 0
@@ -40,7 +42,8 @@ def showOptionMenu():
 
 
 def createPlayer(n):
-    player = p(input(f"{LetCol.OKCYAN}Please Player{n} enter your name: {LetCol.RESET}"))
+    player = p(input(f"{LetCol.OKCYAN}Please Player{n} \
+enter your name: {LetCol.RESET}"))
     return player
 
 
@@ -49,8 +52,13 @@ def playerVsMachine():
     computer = p("Computer")
     while(player.score < 100 and computer.score < 100):
         player = playerTurn(player)
+        if(player.score >= 100):
+            break
         computer = computerTurn(computer, player)
-        print(f'Your probabilities to win are: {prob.pWin(player.score, computer.score, 0):.2f}')
+        if(computer.score >= 100):
+            break
+        print(f'Your probabilities to win are: \
+{prob.pWin(player.score, computer.score, 0):.2f}')
 
     if(player.score >= GOAL):
         print(f'{LetCol.OKGREEN}CONGRATULATIONS {player.name} YOU WIN!! Humans \
@@ -127,7 +135,7 @@ def playerVsPlayer():
     if(player1.score >= GOAL):
         print(f'{LetCol.OKGREEN} CONGRATULATIONS {player1.name}\
  YOU WIN!!{LetCol.RESET}')
-        
+
     elif(player2.score >= GOAL):
         print(f'{LetCol.OKGREEN} CONGRATULATIONS {player2.name} YOU WIN!!\
 {LetCol.RESET}')
@@ -139,7 +147,8 @@ def playerVsPlayer():
     while(player.score < 100 and computer.score < 100):
         player = playerTurn(player)
         computer = computerTurn(computer, player)
-        print(f'Your probabilities to win are: {prob.pWin(player.score, computer.score, 0):.2f}')
+        print(f'Your probabilities to win are: \
+{prob.pWin(player.score, computer.score, 0):.2f}')
 
     if(player.score >= GOAL):
         print(f'{LetCol.OKGREEN}CONGRATULATIONS {player.name} YOU WIN!! Humans \
