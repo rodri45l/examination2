@@ -1,5 +1,6 @@
 
 import sys
+from unittest import result
 sys.path.append('./examinaton2')
 import unittest
 import DiceGame.OopPigGame as game
@@ -58,3 +59,25 @@ Players take turns to roll a single dice as many times\
  as they wish,    \nadding all roll results to a running total, but losing \
 their gained score for the turn if they roll a 1.\n{LetCol.HEADER}{DIVIDER}'
         mock_print.assert_called_with(str)
+
+    string_opt = '1'
+    @patch('builtins.input', return_value=string_opt)
+    def test_showOptionMenu(self, mock_input):
+        result = game.showOptionMenu()
+        self.assertEqual(result, 1)
+    
+    string_opt1 = '1'
+    @patch('builtins.input', return_value=string_opt1)
+    def test_showMenu(self, mock_input):
+        result = game.showMenu()
+        self.assertEqual(result, 1)
+
+    string_opt2 = 'Rodri'
+    @patch('builtins.input', return_value=string_opt2)
+    def test_createPlayer(self, mock_input):
+        result = game.createPlayer(1)
+        exp = pigC.Player
+        self.assertIsInstance(result, exp)
+    
+
+
